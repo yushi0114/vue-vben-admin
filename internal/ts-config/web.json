@@ -5,7 +5,7 @@
   "compilerOptions": {
     "useDefineForClassFields": true,
     "jsx": "preserve",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "noImplicitAny": false,
     "moduleResolution": "bundler",
     "types": ["vite/client"]

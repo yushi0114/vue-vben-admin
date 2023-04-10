@@ -27,7 +27,7 @@
   const loading = ref(true);
   const topRef = ref(50);
   const heightRef = ref(window.innerHeight);
-  const frameRef = ref<HTMLFrameElement>();
+  const frameRef = ref<HTMLIFrameElement>();
   const { headerHeightRef } = useLayoutHeight();
 
   const { prefixCls } = useDesign('iframe-page');
