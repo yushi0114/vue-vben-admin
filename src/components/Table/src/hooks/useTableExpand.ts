@@ -1,14 +1,15 @@
 import type { ComputedRef, Ref } from 'vue';
-import type { BasicTableProps } from '../types/table';
-import { computed, unref, ref, toRaw } from 'vue';
+import { computed, ref, toRaw, unref } from 'vue';
+
 import { ROW_KEY } from '../const';
+import type { BasicTableProps, Key } from '../types/table';
 
 export function useTableExpand(
   propsRef: ComputedRef<BasicTableProps>,
   tableData: Ref<Recordable[]>,
   emit: EmitType,
 ) {
-  const expandedRowKeys = ref<string[]>([]);
+  const expandedRowKeys = ref<Key[]>([]);
 
   const getAutoCreateKey = computed(() => {
     return unref(propsRef).autoCreateKey && !unref(propsRef).rowKey;
@@ -37,7 +38,7 @@ export function useTableExpand(
     expandedRowKeys.value = keys;
   }
 
-  function expandRows(keys: string[]) {
+  function expandRows(keys: Key[]) {
     // use row ID expands the specified table row
     const { isTreeTable } = unref(propsRef);
     if (!isTreeTable) return;

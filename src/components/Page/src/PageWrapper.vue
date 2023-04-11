@@ -84,7 +84,7 @@
       );
 
       const getIsContentFullHeight = computed(() => {
-        return props.contentFullHeight;
+        return !!props.contentFullHeight;
       });
 
       const getUpwardSpace = computed(() => props.upwardSpace);

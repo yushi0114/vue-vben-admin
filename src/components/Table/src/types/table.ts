@@ -1,5 +1,8 @@
 import type { ColumnProps } from 'ant-design-vue/lib/table';
-import type { TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib/table/interface';
+import type {
+  Key as IKey,
+  TableRowSelection as ITableRowSelection,
+} from 'ant-design-vue/lib/table/interface';
 import type { VNodeChild } from 'vue';
 
 import type { FormProps } from '@/components/Form';
@@ -11,6 +14,8 @@ import type { PaginationProps } from './pagination';
 
 export declare type SortOrder = 'ascend' | 'descend';
 
+export type Key = IKey;
+
 export interface TableCurrentDataSource<T = Recordable> {
   currentDataSource: T[];
 }
@@ -20,7 +25,7 @@ export interface TableRowSelection<T = any> extends ITableRowSelection {
    * Callback executed when selected rows change
    * @type Function
    */
-  onChange?: (selectedRowKeys: string[] | number[], selectedRows: T[]) => any;
+  onChange?: (selectedRowKeys: Key[], selectedRows: T[]) => any;
 
   /**
    * Callback executed when select/deselect one row
@@ -38,7 +43,7 @@ export interface TableRowSelection<T = any> extends ITableRowSelection {
    * Callback executed when row selection is inverted
    * @type Function
    */
-  onSelectInvert?: (selectedRows: string[] | number[]) => any;
+  onSelectInvert?: (selectedRowKeys: Key[]) => any;
 }
 
 export interface TableCustomRecord<T> {
@@ -89,31 +94,31 @@ export interface TableActionType {
   getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
   expandAll: () => void;
-  expandRows: (keys: string[] | number[]) => void;
+  expandRows: (keys: Key[]) => void;
   collapseAll: () => void;
   scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
-  getSelectRowKeys: () => string[];
-  deleteSelectRowByKey: (key: string) => void;
+  getSelectRowKeys: () => Key[];
+  deleteSelectRowByKey: (key: Key) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
-  setTableData: <T = Recordable>(values: T[]) => void;
-  updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void;
-  deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => void;
+  setTableData: <T extends Recordable = Recordable>(values: T[]) => void;
+  updateTableDataRecord: (rowKey: Key, record: Recordable) => Recordable | void;
+  deleteTableDataRecord: (rowKey: Key | Key[]) => void;
   insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => Recordable[] | void;
-  findTableDataRecord: (rowKey: string | number) => Recordable | void;
+  findTableDataRecord: (rowKey: Key) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
-  setColumns: (columns: BasicColumn[] | string[]) => void;
-  getDataSource: <T = Recordable>() => T[];
-  getRawDataSource: <T = Recordable>() => T;
+  setColumns: (columns: BasicColumn[]) => void;
+  getDataSource: <T extends Recordable = Recordable>() => T[];
+  getRawDataSource: <T extends Recordable = Recordable>() => T;
   setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
   redoHeight: () => void;
-  setSelectedRowKeys: (rowKeys: string[] | number[]) => void;
+  setSelectedRowKeys: (rowKeys: Key[]) => void;
   getPaginationRef: () => PaginationProps | boolean;
   getSize: () => SizeType;
   getRowSelection: () => TableRowSelection<Recordable>;
   getCacheColumns: () => BasicColumn[];
   emit?: EmitType;
-  updateTableData: (index: number, key: string, value: any) => Recordable;
+  updateTableData: (index: number, key: Key, value: any) => Recordable;
   setShowPagination: (show: boolean) => Promise<void>;
   getShowPagination: () => boolean;
   setCacheColumnsByField?: (dataIndex: string | undefined, value: BasicColumn) => void;
@@ -203,7 +208,7 @@ export interface BasicTableProps<T = any> {
   // 在分页改变的时候清空选项
   clearSelectOnPageChange?: boolean;
   //
-  rowKey?: string | ((record: Recordable) => string);
+  rowKey?: Key | ((record: Recordable) => Key);
   // 数据
   dataSource?: Recordable[];
   // 标题右侧提示
@@ -239,15 +244,15 @@ export interface BasicTableProps<T = any> {
 
   /**
    * Initial expanded row keys
-   * @type string[]
+   * @type Key[]
    */
-  defaultExpandedRowKeys?: string[];
+  defaultExpandedRowKeys?: Key[];
 
   /**
    * Current expanded row keys
-   * @type string[]
+   * @type Key[]
    */
-  expandedRowKeys?: string[];
+  expandedRowKeys?: Key[];
 
   /**
    * Expanded container render for each row
@@ -403,7 +408,7 @@ export interface BasicTableProps<T = any> {
    * Callback executed when the expanded rows change
    * @param expandedRows
    */
-  onExpandedRowsChange?: (expandedRows: string[] | number[]) => void;
+  onExpandedRowsChange?: (expandedRows: Key[]) => void;
 
   onColumnsChange?: (data: ColumnChangeParam[]) => void;
 }

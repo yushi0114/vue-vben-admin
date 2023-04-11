@@ -10,12 +10,14 @@ import { useAppStoreWithOut } from '@/store/modules/app';
 import { usePermissionStore } from '@/store/modules/permission';
 import { filter } from '@/utils/helper/treeHelper';
 
-const modules = import.meta.globEager('./modules/**/*.ts');
+const modules = import.meta.glob('./modules/**/*.ts', {
+  eager: true,
+});
 
 const menuModules: MenuModule[] = [];
 
 Object.keys(modules).forEach((key) => {
-  const mod = modules[key].default || {};
+  const mod = (modules[key] as Recordable).default || {};
   const modList = isArray(mod) ? [...mod] : [mod];
   menuModules.push(...modList);
 });

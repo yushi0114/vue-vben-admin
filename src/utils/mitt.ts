@@ -22,7 +22,7 @@ export type EventHandlerMap<Events extends Record<EventType, unknown>> = Map<
   EventHandlerList<Events[keyof Events]> | WildCardEventHandlerList<Events>
 >;
 
-export interface Emitter<Events extends Record<EventType, unknown>> {
+export interface Emitter<Events extends Record<EventType, unknown> = Record<EventType, any>> {
   all: EventHandlerMap<Events>;
 
   on<Key extends keyof Events>(type: Key, handler: Handler<Events[Key]>): void;
@@ -41,7 +41,7 @@ export interface Emitter<Events extends Record<EventType, unknown>> {
  * @name mitt
  * @returns {Mitt}
  */
-export function mitt<Events extends Record<EventType, unknown>>(
+export function mitt<Events extends Record<EventType, any>>(
   all?: EventHandlerMap<Events>,
 ): Emitter<Events> {
   type GenericEventHandler = Handler<Events[keyof Events]> | WildcardHandler<Events>;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { isString } from '@vben/shared';
-  import { computed, type CSSProperties, useCssModule } from 'vue';
+  import { computed, type CSSProperties, useCssModule, withDefaults } from 'vue';
 
   defineOptions({
     name: 'VbenSvgIcon',

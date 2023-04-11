@@ -28,7 +28,7 @@
   export default defineComponent({
     name: 'Menu',
     props: {
-      theme: propTypes.oneOf(['light', 'dark']).def('light'),
+      theme: propTypes.oneOf<'light' | 'dark'>(['light', 'dark']).def('light'),
       activeName: propTypes.oneOfType([propTypes.string, propTypes.number]),
       openNames: {
         type: Array as PropType<string[]>,
@@ -50,7 +50,7 @@
       const instance = getCurrentInstance();
 
       const currentActiveName = ref<string | number>('');
-      const openedNames = ref<string[]>([]);
+      const openedNames = ref<(string | number)[]>([]);
 
       const { prefixCls } = useDesign('menu');
 
@@ -96,13 +96,13 @@
         rootMenuEmitter.emit('on-update-opened', openedNames.value);
       }
 
-      function addSubMenu(name: string) {
+      function addSubMenu(name: string | number) {
         if (openedNames.value.includes(name)) return;
         openedNames.value.push(name);
         updateOpened();
       }
 
-      function removeSubMenu(name: string) {
+      function removeSubMenu(name: string | number) {
         openedNames.value = openedNames.value.filter((item) => item !== name);
         updateOpened();
       }

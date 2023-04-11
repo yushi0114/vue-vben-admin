@@ -8,7 +8,13 @@ import { isProdMode } from '@/utils/env';
 import type { DynamicProps } from '#/utils';
 
 import type { PaginationProps } from '../types/pagination';
-import type { BasicColumn, BasicTableProps, FetchParams, TableActionType } from '../types/table';
+import type {
+  BasicColumn,
+  BasicTableProps,
+  FetchParams,
+  Key,
+  TableActionType,
+} from '../types/table';
 
 type Props = Partial<DynamicProps<BasicTableProps>>;
 
@@ -103,7 +109,7 @@ export function useTable(tableProps?: Props): [
     setPagination: (info: Partial<PaginationProps>) => {
       return getTableInstance().setPagination(info);
     },
-    deleteSelectRowByKey: (key: string) => {
+    deleteSelectRowByKey: (key: Key) => {
       getTableInstance().deleteSelectRowByKey(key);
     },
     getSelectRowKeys: () => {
@@ -115,7 +121,7 @@ export function useTable(tableProps?: Props): [
     clearSelectedRowKeys: () => {
       getTableInstance().clearSelectedRowKeys();
     },
-    setSelectedRowKeys: (keys: string[] | number[]) => {
+    setSelectedRowKeys: (keys: Key[]) => {
       getTableInstance().setSelectedRowKeys(keys);
     },
     getPaginationRef: () => {
@@ -124,19 +130,19 @@ export function useTable(tableProps?: Props): [
     getSize: () => {
       return toRaw(getTableInstance().getSize());
     },
-    updateTableData: (index: number, key: string, value: any) => {
+    updateTableData: (index: number, key: Key, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
     },
-    deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => {
+    deleteTableDataRecord: (rowKey: Key | Key[]) => {
       return getTableInstance().deleteTableDataRecord(rowKey);
     },
     insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => {
       return getTableInstance().insertTableDataRecord(record, index);
     },
-    updateTableDataRecord: (rowKey: string | number, record: Recordable) => {
+    updateTableDataRecord: (rowKey: Key, record: Recordable) => {
       return getTableInstance().updateTableDataRecord(rowKey, record);
     },
-    findTableDataRecord: (rowKey: string | number) => {
+    findTableDataRecord: (rowKey: Key) => {
       return getTableInstance().findTableDataRecord(rowKey);
     },
     getRowSelection: () => {
@@ -157,7 +163,7 @@ export function useTable(tableProps?: Props): [
     expandAll: () => {
       getTableInstance().expandAll();
     },
-    expandRows: (keys: string[]) => {
+    expandRows: (keys: Key[]) => {
       getTableInstance().expandRows(keys);
     },
     collapseAll: () => {

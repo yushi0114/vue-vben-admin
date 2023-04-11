@@ -5,9 +5,9 @@
 import type { RouteLocationNormalized } from 'vue-router';
 
 import { getRawRoute } from '@/utils';
-import { mitt } from '@/utils/mitt';
+import { type EventType, mitt } from '@/utils/mitt';
 
-const emitter = mitt();
+const emitter = mitt<Record<EventType, any>>();
 
 const key = Symbol();
 

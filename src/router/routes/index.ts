@@ -7,13 +7,15 @@ import type { AppRouteModule, AppRouteRecordRaw } from '@/router/types';
 
 import { mainOutRoutes } from './mainOut';
 
-// import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
-const modules = import.meta.globEager('./modules/**/*.ts');
+// import.meta.glob() 直接引入所有的模块 Vite 独有的功能
+const modules = import.meta.glob('./modules/**/*.ts', {
+  eager: true,
+});
 const routeModuleList: AppRouteModule[] = [];
 
 // 加入到路由集合中
 Object.keys(modules).forEach((key) => {
-  const mod = modules[key].default || {};
+  const mod = (modules[key] as Recordable).default || {};
   const modList = isArray(mod) ? [...mod] : [mod];
   routeModuleList.push(...modList);
 });

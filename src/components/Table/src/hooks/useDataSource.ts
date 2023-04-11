@@ -15,7 +15,7 @@ import {
 
 import { FETCH_SETTING, PAGE_SIZE, ROW_KEY } from '../const';
 import type { PaginationProps } from '../types/pagination';
-import type { BasicTableProps, FetchParams, SorterResult } from '../types/table';
+import type { BasicTableProps, FetchParams, Key, SorterResult } from '../types/table';
 
 interface ActionType {
   getPaginationInfo: ComputedRef<boolean | PaginationProps>;
@@ -160,7 +160,7 @@ export function useDataSource(
     }
   }
 
-  function deleteTableDataRecord(rowKey: string | number | string[] | number[]) {
+  function deleteTableDataRecord(rowKey: Key | Key[]) {
     if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     const rowKeyName = unref(getRowKey);
     if (!rowKeyName) return;
@@ -179,7 +179,7 @@ export function useDataSource(
         }
         for (let i = 0; i < data.length; i++) {
           const row = data[i];
-          let targetKeyName: string = rowKeyName as string;
+          let targetKeyName: Key = rowKeyName as string;
           if (isFunction(rowKeyName)) {
             targetKeyName = rowKeyName(row);
           }
@@ -208,7 +208,7 @@ export function useDataSource(
 
   function insertTableDataRecord(
     record: Recordable | Recordable[],
-    index: number,
+    index?: number,
   ): Recordable[] | undefined {
     // if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     index = index ?? dataSourceRef.value?.length;
@@ -348,7 +348,7 @@ export function useDataSource(
     }
   }
 
-  function setTableData<T = Recordable>(values: T[]) {
+  function setTableData<T extends Recordable = Recordable>(values: T[]) {
     dataSourceRef.value = values;
   }
 

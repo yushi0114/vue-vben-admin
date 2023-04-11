@@ -39,7 +39,7 @@ export default function ({
     }
     if (isObject(emptySpan)) {
       const { span = 0 } = emptySpan;
-      return span || 0;
+      return Number(span) || 0;
     }
     return 0;
   });

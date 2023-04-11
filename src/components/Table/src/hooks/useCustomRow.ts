@@ -1,12 +1,13 @@
+import { isFunction, isString } from '@vben/shared';
 import type { ComputedRef } from 'vue';
-import type { BasicTableProps } from '../types/table';
 import { unref } from 'vue';
+
 import { ROW_KEY } from '../const';
-import { isString, isFunction } from '@vben/shared';
+import type { BasicTableProps, Key } from '../types/table';
 
 interface Options {
   setSelectedRowKeys: (keys: string[]) => void;
-  getSelectRowKeys: () => string[];
+  getSelectRowKeys: () => Key[];
   clearSelectedRowKeys: () => void;
   emit: EmitType;
   getAutoCreateKey: ComputedRef<boolean | undefined>;
@@ -14,7 +15,7 @@ interface Options {
 
 function getKey(
   record: Recordable,
-  rowKey: string | ((record: Record<string, any>) => string) | undefined,
+  rowKey: Key | ((record: Recordable) => Key) | undefined,
   autoCreateKey?: boolean,
 ) {
   if (!rowKey || autoCreateKey) {

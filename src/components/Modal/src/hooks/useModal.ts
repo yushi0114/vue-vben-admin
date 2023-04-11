@@ -109,7 +109,7 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
   const getInstance = () => {
     const instance = unref(modalInstanceRef);
     if (!instance) {
-      error('useModalInner instance is undefined!');
+      loggerError('useModalInner instance is undefined!');
     }
     return instance;
   };

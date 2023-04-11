@@ -1,6 +1,6 @@
 <template>
   <li :class="getClass" @click.stop="handleClickItem" :style="getCollapse ? {} : getItemStyle">
-    <Tooltip placement="right" v-if="showTooptip">
+    <Tooltip placement="right" v-if="showTooltip">
       <template #title>
         <slot name="title"></slot>
       </template>
@@ -61,7 +61,7 @@
 
       const getCollapse = computed(() => unref(getParentRootMenu)?.props.collapse);
 
-      const showTooptip = computed(() => {
+      const showTooltip = computed(() => {
         return unref(getParentMenu)?.type.name === 'Menu' && unref(getCollapse) && slots.title;
       });
 
@@ -85,7 +85,7 @@
       }
       watch(
         () => activeName.value,
-        (name: string) => {
+        (name: string | number) => {
           if (name === props.name) {
             const { list, uidList } = getParentList();
             active.value = true;
@@ -103,7 +103,7 @@
         { immediate: true },
       );
 
-      return { getClass, prefixCls, getItemStyle, getCollapse, handleClickItem, showTooptip };
+      return { getClass, prefixCls, getItemStyle, getCollapse, handleClickItem, showTooltip };
     },
   });
 </script>

@@ -5,14 +5,14 @@ import { computed, ComputedRef, nextTick, Ref, ref, toRaw, unref, watch } from '
 import { findNodeAll } from '@/utils/helper/treeHelper';
 
 import { ROW_KEY } from '../const';
-import type { BasicTableProps, TableRowSelection } from '../types/table';
+import type { BasicTableProps, Key, TableRowSelection } from '../types/table';
 
 export function useRowSelection(
   propsRef: ComputedRef<BasicTableProps>,
   tableData: Ref<Recordable[]>,
   emit: EmitType,
 ) {
-  const selectedRowKeysRef = ref<string[]>([]);
+  const selectedRowKeysRef = ref<Key[]>([]);
   const selectedRowRef = ref<Recordable[]>([]);
 
   const getRowSelectionRef = computed((): TableRowSelection | null => {
@@ -23,7 +23,7 @@ export function useRowSelection(
 
     return {
       selectedRowKeys: unref(selectedRowKeysRef),
-      onChange: (selectedRowKeys: string[]) => {
+      onChange: (selectedRowKeys: Key[]) => {
         setSelectedRowKeys(selectedRowKeys);
       },
       ...omit(rowSelection, ['onChange']),
@@ -32,8 +32,8 @@ export function useRowSelection(
 
   watch(
     () => unref(propsRef).rowSelection?.selectedRowKeys,
-    (v: string[]) => {
-      setSelectedRowKeys(v);
+    (v: Key[] | undefined) => {
+      v && setSelectedRowKeys(v);
     },
   );
 
@@ -64,7 +64,7 @@ export function useRowSelection(
     return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
   });
 
-  function setSelectedRowKeys(rowKeys: string[]) {
+  function setSelectedRowKeys(rowKeys: Key[]) {
     selectedRowKeysRef.value = rowKeys;
     const allSelectedRows = findNodeAll(
       toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
@@ -74,7 +74,7 @@ export function useRowSelection(
       },
     );
     const trueSelectedRows: any[] = [];
-    rowKeys?.forEach((key: string) => {
+    rowKeys?.forEach((key: Key) => {
       const found = allSelectedRows.find((item) => item[unref(getRowKey) as string] === key);
       found && trueSelectedRows.push(found);
     });
@@ -90,7 +90,7 @@ export function useRowSelection(
     selectedRowKeysRef.value = [];
   }
 
-  function deleteSelectRowByKey(key: string) {
+  function deleteSelectRowByKey(key: Key) {
     const selectedRowKeys = unref(selectedRowKeysRef);
     const index = selectedRowKeys.findIndex((item) => item === key);
     if (index !== -1) {

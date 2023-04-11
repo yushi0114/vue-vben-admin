@@ -1,5 +1,5 @@
 import { dateFn, formatDate, isNumber, isObject } from '@vben/shared';
-import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
+import type { Rule } from 'ant-design-vue/lib/form/Interface';
 
 import { useI18n } from '@/hooks/web/useI18n';
 
@@ -36,11 +36,7 @@ function genType() {
   return [...DATE_TYPE, 'RangePicker'];
 }
 
-export function setComponentRuleType(
-  rule: ValidationRule,
-  component: ComponentType,
-  valueFormat: string,
-) {
+export function setComponentRuleType(rule: Rule, component: ComponentType, valueFormat: string) {
   if (['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'].includes(component)) {
     rule.type = valueFormat ? 'string' : 'object';
   } else if (['RangePicker', 'Upload', 'CheckboxGroup', 'TimePicker'].includes(component)) {

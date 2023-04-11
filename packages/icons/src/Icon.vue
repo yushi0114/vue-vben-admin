@@ -10,6 +10,7 @@
     unref,
     useCssModule,
     watch,
+    withDefaults,
   } from 'vue';
 
   defineOptions({

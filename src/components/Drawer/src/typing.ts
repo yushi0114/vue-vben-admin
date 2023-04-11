@@ -4,7 +4,7 @@ import type { ComputedRef, CSSProperties, VNodeChild } from 'vue';
 import type { ScrollContainerOptions } from '@/components/Container/index';
 
 export interface DrawerInstance {
-  setDrawerProps: (props: Partial<DrawerProps> | boolean) => void;
+  setDrawerProps: (props: Partial<DrawerProps>) => void;
   emitVisible?: (visible: boolean, uid: number) => void;
 }
 
@@ -14,7 +14,7 @@ export interface ReturnMethods extends DrawerInstance {
   getVisible?: ComputedRef<boolean>;
 }
 
-export type RegisterFn = (drawerInstance: DrawerInstance, uuid?: string) => void;
+export type RegisterFn = (drawerInstance: DrawerInstance, uuid: string) => void;
 
 export interface ReturnInnerMethods extends DrawerInstance {
   closeDrawer: () => void;
