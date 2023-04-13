@@ -62,6 +62,9 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         ],
       },
       define: defineData,
+      esbuild: {
+        drop: isBuild ? ['console', 'debugger'] : [],
+      },
       build: {
         rollupOptions: {
           output: {
