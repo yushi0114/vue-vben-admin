@@ -63,7 +63,7 @@
     return {
       fontSize: isString(size) ? `${Number.parseInt(size)}px` : `${size}px`,
       color,
-      display: 'inline-flex',
+      display: 'inline-block',
     };
   });
 
@@ -95,7 +95,7 @@
 </script>
 
 <template>
-  <span ref="iconRef" v-bind="$attrs" :class="$style.icon" :style="iconStyles">1</span>
+  <span ref="iconRef" v-bind="$attrs" :class="$style.icon" :style="iconStyles"></span>
 </template>
 
 <style module scoped>

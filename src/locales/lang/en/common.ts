@@ -8,6 +8,8 @@ export default {
   resetText: 'Reset',
   searchText: 'Search',
   queryText: 'Search',
+  yesText: 'Yes',
+  noText: 'No',
 
   inputText: 'Please enter',
   chooseText: 'Please choose',

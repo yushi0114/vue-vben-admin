@@ -1,3 +1,4 @@
+import { loggerError } from '@vben/shared';
 import { unref } from 'vue';
 import type { RouteLocationRaw, Router } from 'vue-router';
 import { useRouter } from 'vue-router';
@@ -9,7 +10,7 @@ export type PathAsPageEnum<T> = T extends { path: string } ? T & { path: PageEnu
 export type RouteLocationRawEx = PathAsPageEnum<RouteLocationRaw>;
 
 function handleError(e: Error) {
-  console.error(e);
+  loggerError(e.message);
 }
 
 /**

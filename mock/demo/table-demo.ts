@@ -1,5 +1,6 @@
-import { MockMethod } from 'vite-plugin-mock';
 import { Random } from 'mockjs';
+import { MockMethod } from 'vite-plugin-mock';
+
 import { resultPageSuccess } from '../_util';
 
 function getRandomPics(count = 10): string[] {
@@ -19,7 +20,7 @@ const demoList = (() => {
       endTime: '@datetime',
       address: '@city()',
       name: '@cname()',
-      name1: '@cname()',
+      name1: '@cname();@cname()',
       name2: '@cname()',
       name3: '@cname()',
       name4: '@cname()',
